@@ -3,9 +3,9 @@ import { useCarousel, CAROUSEL_GAP, TRANSITION_MS } from '../../hooks/useCarouse
 import { ChevronLeft } from '@/assets/ChevronLeft';
 import { ChevronRight } from '@/assets/ChevronRight';
 import { CheckIcon } from '@/assets/CheckIcon';
+import { CloseIcon } from '@/assets/CloseIcon';
 import { getThumbUrl } from '@/shared/utils/getThumbUrl';
 import styles from './Carousel.module.css';
-import { CloseIcon } from '@/assets/CloseIcon';
 
 const DRAG_THRESHOLD = 50;
 
@@ -13,7 +13,7 @@ type CarouselProps = {
   images: string[];
 };
 
-export function Carousel({ images }: CarouselProps) {
+export const Carousel = ({ images }: CarouselProps) => {
   const {
     containerRef,
     clonedImages,
@@ -206,4 +206,4 @@ export function Carousel({ images }: CarouselProps) {
       )}
     </div>
   );
-}
+};

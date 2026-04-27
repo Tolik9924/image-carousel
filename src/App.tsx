@@ -5,8 +5,6 @@ import './App.css';
 export default function App() {
   const { images, loading, error } = usePicsumImages();
 
-  console.log('IMAGES: ', images);
-
   return (
     <main className="app">
       <header className="app__header">
