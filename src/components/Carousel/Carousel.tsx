@@ -3,8 +3,9 @@ import { useCarousel, CAROUSEL_GAP, TRANSITION_MS } from '../../hooks/useCarouse
 import { ChevronLeft } from '@/assets/ChevronLeft';
 import { ChevronRight } from '@/assets/ChevronRight';
 import { CheckIcon } from '@/assets/CheckIcon';
-import './Carousel.css';
 import { getThumbUrl } from '@/shared/utils/getThumbUrl';
+import styles from './Carousel.module.css';
+import { CloseIcon } from '@/assets/CloseIcon';
 
 const DRAG_THRESHOLD = 50;
 
@@ -52,7 +53,6 @@ export function Carousel({ images }: CarouselProps) {
     [selected, removing],
   );
 
-  // Touch / drag support
   const pointerStartX = useRef<number | null>(null);
   const isDragging = useRef(false);
 
@@ -100,10 +100,13 @@ export function Carousel({ images }: CarouselProps) {
   const selectedList = [...selected].filter((url) => images.includes(url));
 
   return (
-    <div className="carousel-wrapper">
-      <div className={`carousel${isReady ? ' carousel--ready' : ''}`} ref={containerRef}>
+    <div className={styles.carouselWrapper}>
+      <div
+        className={`${styles.carousel}${isReady ? ` ${styles.carouselReady}` : ''}`}
+        ref={containerRef}
+      >
         <div
-          className="carousel__viewport"
+          className={styles.carouselViewport}
           onMouseDown={(e) => handlePointerDown(e.clientX)}
           onMouseMove={(e) => handlePointerMove(e.clientX)}
           onMouseUp={(e) => handlePointerUp(e.clientX)}
@@ -116,7 +119,7 @@ export function Carousel({ images }: CarouselProps) {
           onTouchEnd={(e) => handlePointerUp(e.changedTouches[0].clientX)}
         >
           <div
-            className="carousel__track"
+            className={styles.carouselTrack}
             style={{
               transform: `translateX(${translateX}px)`,
               transition: transitionEnabled
@@ -131,7 +134,7 @@ export function Carousel({ images }: CarouselProps) {
               return (
                 <div
                   key={i}
-                  className={`carousel__item${isSelected ? ' carousel__item--selected' : ''}`}
+                  className={`${styles.carouselItem}${isSelected ? ` ${styles.carouselItemSelected}` : ''}`}
                   style={{ width: itemWidth }}
                   onClick={() => handleItemClick(url)}
                   role="button"
@@ -139,10 +142,10 @@ export function Carousel({ images }: CarouselProps) {
                   aria-pressed={isSelected}
                   aria-label={`Image ${i + 1}${isSelected ? ', selected' : ''}`}
                 >
-                  <div className="carousel__item__inner">
-                    <img className="carousel__item__img" src={url} alt="" draggable={false} />
-                    <div className="carousel__item__overlay" />
-                    <div className="carousel__item__check" aria-hidden="true">
+                  <div className={styles.carouselItemInner}>
+                    <img className={styles.carouselItemImg} src={url} alt="" draggable={false} />
+                    <div className={styles.carouselItemOverlay} />
+                    <div className={styles.carouselItemCheck} aria-hidden="true">
                       <CheckIcon />
                     </div>
                   </div>
@@ -153,14 +156,14 @@ export function Carousel({ images }: CarouselProps) {
         </div>
 
         <button
-          className="carousel__btn carousel__btn--prev"
+          className={`${styles.carouselBtn} ${styles.carouselBtnPrev}`}
           onClick={goPrev}
           aria-label="Previous image"
         >
           <ChevronLeft />
         </button>
         <button
-          className="carousel__btn carousel__btn--next"
+          className={`${styles.carouselBtn} ${styles.carouselBtnNext}`}
           onClick={goNext}
           aria-label="Next image"
         >
@@ -169,31 +172,31 @@ export function Carousel({ images }: CarouselProps) {
       </div>
 
       {selectedList.length > 0 && (
-        <div className="selected-list">
-          <div className="selected-list__header">
-            <h3 className="selected-list__title">Selected</h3>
-            <span className="selected-list__count">{selectedList.length}</span>
+        <div className={styles.selectedList}>
+          <div className={styles.selectedListHeader}>
+            <h3 className={styles.selectedListTitle}>Selected</h3>
+            <span className={styles.selectedListCount}>{selectedList.length}</span>
           </div>
-          <div className="selected-list__grid">
+          <div className={styles.selectedListGrid}>
             {selectedList.map((url) => (
               <div
                 key={url}
-                className={`selected-list__item${removing.has(url) ? ' selected-list__item--removing' : ''}`}
+                className={`${styles.selectedListItem}${removing.has(url) ? ` ${styles.selectedListItemRemoving}` : ''}`}
               >
                 <img
-                  className="selected-list__item__img"
+                  className={styles.selectedListItemImg}
                   src={getThumbUrl(url)}
                   alt=""
                   draggable={false}
                 />
                 <button
-                  className="selected-list__item__remove"
+                  className={styles.selectedListItemRemove}
                   onClick={() => toggleSelect(url)}
                   aria-label="Remove from selection"
                 >
-                  ×
+                  <CloseIcon />
                 </button>
-                <div className="selected-list__item__url" title={url}>
+                <div className={styles.selectedListItemUrl} title={url}>
                   {url.split('/').slice(-3).join('/')}
                 </div>
               </div>

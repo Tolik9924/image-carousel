@@ -1,11 +1,9 @@
-/* ── App layout ─────────────────────────────────────────────── */
 .app {
   width: 100%;
   padding: 0 32px 64px;
   box-sizing: border-box;
 }
 
-/* ── Header ─────────────────────────────────────────────────── */
 .app__header {
   text-align: center;
   padding: 56px 0 40px;
@@ -17,10 +15,6 @@
   letter-spacing: -1.5px;
   margin: 0 0 12px;
   color: var(--text-h);
-  background: linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .app__subtitle {
@@ -30,12 +24,10 @@
   letter-spacing: 0.1px;
 }
 
-/* ── Carousel section ───────────────────────────────────────── */
 .app__carousel-section {
   width: 100%;
 }
 
-/* ── Loading / error states ─────────────────────────────────── */
 .app__state {
   display: flex;
   flex-direction: column;
@@ -64,7 +56,6 @@
   }
 }
 
-/* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 599px) {
   .app {
     padding: 0 16px 48px;

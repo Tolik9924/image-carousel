@@ -1,10 +1,8 @@
-/* ── Wrapper ─────────────────────────────────────────────────── */
-.carousel-wrapper {
+.carouselWrapper {
   width: 100%;
   padding: 0 0 40px;
 }
 
-/* ── Main carousel container ────────────────────────────────── */
 .carousel {
   position: relative;
   width: 100%;
@@ -12,12 +10,11 @@
   transition: opacity 0.25s ease;
 }
 
-.carousel--ready {
+.carouselReady {
   opacity: 1;
 }
 
-/* ── Viewport (overflow mask) ───────────────────────────────── */
-.carousel__viewport {
+.carouselViewport {
   overflow: hidden;
   border-radius: 16px;
   cursor: grab;
@@ -25,24 +22,22 @@
   -webkit-user-select: none;
 }
 
-.carousel__viewport:active {
+.carouselViewport:active {
   cursor: grabbing;
 }
 
-/* ── Scrolling track ────────────────────────────────────────── */
-.carousel__track {
+.carouselTrack {
   display: flex;
   align-items: stretch;
   will-change: transform;
 }
 
-/* ── Individual item ────────────────────────────────────────── */
-.carousel__item {
+.carouselItem {
   flex: 0 0 auto;
   outline: none;
 }
 
-.carousel__item__inner {
+.carouselItemInner {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
@@ -54,20 +49,19 @@
     box-shadow 0.22s ease;
 }
 
-.carousel__item__inner:hover {
+.carouselItemInner:hover {
   transform: scale(1.025);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
 }
 
-.carousel__item--selected .carousel__item__inner {
+.carouselItemSelected .carouselItemInner {
   transform: scale(1.04);
   box-shadow:
     0 0 0 3px var(--accent),
-    0 8px 32px rgba(170, 59, 255, 0.28);
+    0 8px 32px rgba(59, 130, 246, 0.25);
 }
 
-/* Image */
-.carousel__item__img {
+.carouselItemImg {
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
@@ -75,22 +69,20 @@
   pointer-events: none;
 }
 
-/* Colour overlay on selection */
-.carousel__item__overlay {
+.carouselItemOverlay {
   position: absolute;
   inset: 0;
-  background: rgba(170, 59, 255, 0.18);
+  background: var(--accent-overlay);
   opacity: 0;
   transition: opacity 0.22s ease;
   pointer-events: none;
 }
 
-.carousel__item--selected .carousel__item__overlay {
+.carouselItemSelected .carouselItemOverlay {
   opacity: 1;
 }
 
-/* Check badge */
-.carousel__item__check {
+.carouselItemCheck {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -111,15 +103,14 @@
   box-shadow: 0 2px 8px rgba(170, 59, 255, 0.5);
 }
 
-.carousel__item--selected .carousel__item__check {
+.carouselItemSelected .carouselItemCheck {
   opacity: 1;
   transform: scale(1) rotate(0deg);
 }
 
-/* ── Nav buttons ────────────────────────────────────────────── */
-.carousel__btn {
+.carouselBtn {
   position: absolute;
-  top: calc(50% - 24px); /* center within the image height (accounting for aspect-ratio) */
+  top: calc(50% - 24px);
   z-index: 10;
   width: 48px;
   height: 48px;
@@ -142,7 +133,7 @@
     background 0.18s ease;
 }
 
-.carousel__btn:hover {
+.carouselBtn:hover {
   transform: scale(1.1);
   box-shadow:
     0 6px 22px rgba(0, 0, 0, 0.18),
@@ -150,21 +141,21 @@
   background: #fff;
 }
 
-.carousel__btn:active {
+.carouselBtn:active {
   transform: scale(0.94);
   transition: transform 0.08s ease;
 }
 
-.carousel__btn--prev {
+.carouselBtnPrev {
   left: 14px;
 }
 
-.carousel__btn--next {
+.carouselBtnNext {
   right: 14px;
 }
 
 @media (prefers-color-scheme: dark) {
-  .carousel__btn {
+  .carouselBtn {
     background: rgba(22, 22, 32, 0.92);
     color: #e5e7eb;
     box-shadow:
@@ -172,20 +163,19 @@
       0 0 0 1px rgba(255, 255, 255, 0.06);
   }
 
-  .carousel__btn:hover {
+  .carouselBtn:hover {
     background: rgba(34, 34, 52, 0.98);
   }
 }
 
-/* ── Selected list ──────────────────────────────────────────── */
-.selected-list {
+.selectedList {
   margin-top: 40px;
   padding-top: 28px;
   border-top: 1px solid var(--border);
   text-align: left;
 }
 
-.selected-list__header {
+.selectedListHeader {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -193,7 +183,7 @@
   padding: 0 4px;
 }
 
-.selected-list__title {
+.selectedListTitle {
   font-size: 18px;
   font-weight: 600;
   color: var(--text-h);
@@ -201,7 +191,7 @@
   letter-spacing: -0.3px;
 }
 
-.selected-list__count {
+.selectedListCount {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -216,15 +206,14 @@
   letter-spacing: 0;
 }
 
-.selected-list__grid {
+.selectedListGrid {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   padding: 0 4px;
 }
 
-/* Individual thumb card */
-.selected-list__item {
+.selectedListItem {
   position: relative;
   width: 120px;
   border-radius: 10px;
@@ -237,7 +226,7 @@
   cursor: default;
 }
 
-.selected-list__item--removing {
+.selectedListItemRemoving {
   animation: thumbOut 0.22s cubic-bezier(0.4, 0, 0.6, 1) both;
   pointer-events: none;
 }
@@ -264,14 +253,14 @@
   }
 }
 
-.selected-list__item__img {
+.selectedListItemImg {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
   display: block;
 }
 
-.selected-list__item__url {
+.selectedListItemUrl {
   padding: 5px 7px 6px;
   font-size: 10px;
   color: var(--text);
@@ -282,8 +271,7 @@
   letter-spacing: 0;
 }
 
-/* Remove button — revealed on hover */
-.selected-list__item__remove {
+.selectedListItemRemove {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -308,31 +296,30 @@
     background 0.15s ease;
 }
 
-.selected-list__item:hover .selected-list__item__remove {
+.selectedListItem:hover .selectedListItemRemove {
   opacity: 1;
   transform: scale(1);
 }
 
-.selected-list__item__remove:hover {
-  background: rgba(220, 50, 50, 0.85);
+.selectedListItemRemove:hover {
+  background: rgba(0, 0, 0, 0.35);
 }
 
-/* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 599px) {
-  .carousel__btn {
+  .carouselBtn {
     width: 40px;
     height: 40px;
   }
 
-  .carousel__btn--prev {
+  .carouselBtnPrev {
     left: 8px;
   }
 
-  .carousel__btn--next {
+  .carouselBtnNext {
     right: 8px;
   }
 
-  .selected-list__item {
+  .selectedListItem {
     width: 100px;
   }
 }

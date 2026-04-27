@@ -1,28 +1,13 @@
+import { GAP } from '@/shared/constants/constants';
+import { computeLayout } from '@/shared/utils/computeLayout';
 import type { RefObject } from 'react';
 import { useState, useRef, useCallback, useEffect, useMemo, useLayoutEffect } from 'react';
-
-const GAP = 12;
-const MIN_ITEM_WIDTH = 240;
-const MAX_VISIBLE = 5;
-
-interface Layout {
-  visibleCount: number;
-  itemWidth: number;
-}
-
-function computeLayout(cw: number): Layout {
-  if (cw <= 0) return { visibleCount: 1, itemWidth: 300 };
-  if (cw < 600) return { visibleCount: 1, itemWidth: cw };
-  const count = Math.max(1, Math.min(MAX_VISIBLE, Math.floor((cw + GAP) / (MIN_ITEM_WIDTH + GAP))));
-  const width = (cw - (count - 1) * GAP) / count;
-  return { visibleCount: count, itemWidth: width };
-}
 
 export const CAROUSEL_GAP = GAP;
 export const TRANSITION_MS = 430;
 
-export interface UseCarouselReturn {
-  containerRef: RefObject<HTMLDivElement>;
+export type UseCarouselReturn = {
+  containerRef: RefObject<HTMLDivElement | null>;
   clonedImages: string[];
   translateX: number;
   transitionEnabled: boolean;
@@ -31,9 +16,9 @@ export interface UseCarouselReturn {
   onTransitionEnd: () => void;
   goNext: () => void;
   goPrev: () => void;
-}
+};
 
-export function useCarousel(images: string[]): UseCarouselReturn {
+export const useCarousel = (images: string[]): UseCarouselReturn => {
   const n = images.length;
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -50,7 +35,6 @@ export function useCarousel(images: string[]): UseCarouselReturn {
 
   const cloneCount = n > 0 ? Math.min(visibleCount, n) : 0;
 
-  // Keep cloneCountRef in sync
   useEffect(() => {
     cloneCountRef.current = cloneCount;
   }, [cloneCount]);
@@ -70,7 +54,6 @@ export function useCarousel(images: string[]): UseCarouselReturn {
     setTrackIndexState(idx);
   }, []);
 
-  // Adjust trackIndex when cloneCount changes (viewport resize)
   const prevCloneCount = useRef(1);
   useEffect(() => {
     const oldCC = prevCloneCount.current;
@@ -89,7 +72,6 @@ export function useCarousel(images: string[]): UseCarouselReturn {
     return () => cancelAnimationFrame(id1);
   }, [cloneCount, n, setTrackIndex]);
 
-  // Measure container synchronously before first paint
   useLayoutEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -100,7 +82,6 @@ export function useCarousel(images: string[]): UseCarouselReturn {
     }
   }, []);
 
-  // ResizeObserver for ongoing measurement
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -145,7 +126,6 @@ export function useCarousel(images: string[]): UseCarouselReturn {
     setTrackIndex(trackIndexRef.current - 1);
   }, [n, setTrackIndex]);
 
-  // Keyboard navigation
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight') goNext();
@@ -168,4 +148,4 @@ export function useCarousel(images: string[]): UseCarouselReturn {
     goNext,
     goPrev,
   };
-}
+};

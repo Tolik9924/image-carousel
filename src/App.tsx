@@ -1,47 +1,11 @@
-import { useState, useEffect } from 'react';
 import { Carousel } from './components/Carousel/Carousel';
+import { usePicsumImages } from './hooks/usePicsumImages';
 import './App.css';
 
-interface PicsumImage {
-  id: string;
-  author: string;
-  width: number;
-  height: number;
-  url: string;
-  download_url: string;
-}
-
-function buildImageUrl(id: string): string {
-  return `https://picsum.photos/id/${id}/900/600`;
-}
-
 export default function App() {
-  const [images, setImages] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { images, loading, error } = usePicsumImages();
 
-  useEffect(() => {
-    const controller = new AbortController();
-
-    fetch('https://picsum.photos/v2/list?page=1&limit=15', {
-      signal: controller.signal,
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json() as Promise<PicsumImage[]>;
-      })
-      .then((data) => {
-        setImages(data.map((item) => buildImageUrl(item.id)));
-        setLoading(false);
-      })
-      .catch((err) => {
-        if ((err as Error).name === 'AbortError') return;
-        setError('Failed to load images. Please try again.');
-        setLoading(false);
-      });
-
-    return () => controller.abort();
-  }, []);
+  console.log('IMAGES: ', images);
 
   return (
     <main className="app">
