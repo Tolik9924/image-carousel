@@ -1,4 +1,5 @@
 import { Carousel } from './components/Carousel/Carousel';
+import { CarouselSkeleton } from './components/Carousel/CarouselSkeleton';
 import { usePicsumImages } from './hooks/usePicsumImages';
 import './App.css';
 
@@ -15,12 +16,7 @@ export default function App() {
       </header>
 
       <section className="app__carousel-section">
-        {loading && (
-          <div className="app__state">
-            <div className="app__spinner" aria-label="Loading images" />
-            <p>Loading images…</p>
-          </div>
-        )}
+        {loading && <CarouselSkeleton />}
         {error && (
           <div className="app__state app__state--error">
             <p>{error}</p>

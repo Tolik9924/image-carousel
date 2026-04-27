@@ -88,6 +88,11 @@ export const Carousel = ({ images }: CarouselProps) => {
     [goNext, goPrev],
   );
 
+  const clearAll = useCallback(() => {
+    setSelected(new Set());
+    setRemoving(new Set());
+  }, []);
+
   const handleItemClick = useCallback(
     (url: string) => {
       if (!isDragging.current) {
@@ -102,7 +107,7 @@ export const Carousel = ({ images }: CarouselProps) => {
   return (
     <div className={styles.carouselWrapper}>
       <div
-        className={`${styles.carousel}${isReady ? ` ${styles.carouselReady}` : ''}`}
+        className={`${styles.carousel}${isReady && ` ${styles.carouselReady}`}`}
         ref={containerRef}
       >
         <div
@@ -176,6 +181,9 @@ export const Carousel = ({ images }: CarouselProps) => {
           <div className={styles.selectedListHeader}>
             <h3 className={styles.selectedListTitle}>Selected</h3>
             <span className={styles.selectedListCount}>{selectedList.length}</span>
+            <button className={styles.selectedListClearAll} onClick={clearAll}>
+              Clear all
+            </button>
           </div>
           <div className={styles.selectedListGrid}>
             {selectedList.map((url) => (

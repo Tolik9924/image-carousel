@@ -8,6 +8,8 @@
   width: 100%;
   opacity: 0;
   transition: opacity 0.25s ease;
+  display: flex;
+  align-items: center;
 }
 
 .carouselReady {
@@ -204,6 +206,27 @@
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0;
+}
+
+.selectedListClearAll {
+  margin-left: auto;
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.selectedListClearAll:hover {
+  background: rgba(220, 50, 50, 0.08);
+  border-color: rgba(220, 50, 50, 0.4);
+  color: #dc3232;
 }
 
 .selectedListGrid {
