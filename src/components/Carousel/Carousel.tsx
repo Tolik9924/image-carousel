@@ -109,6 +109,7 @@ export const Carousel = ({ images }: CarouselProps) => {
       <div
         className={`${styles.carousel}${isReady && ` ${styles.carouselReady}`}`}
         ref={containerRef}
+        style={isReady ? { minHeight: Math.round(itemWidth * (2 / 3)) } : undefined}
       >
         <div
           className={styles.carouselViewport}

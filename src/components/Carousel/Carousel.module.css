@@ -17,6 +17,8 @@
 }
 
 .carouselViewport {
+  flex: 1;
+  min-width: 0;
   overflow: hidden;
   border-radius: 16px;
   cursor: grab;
